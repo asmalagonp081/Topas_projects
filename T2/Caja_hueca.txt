@@ -1,0 +1,67 @@
+# Caja Hueca:
+# En un volumen mundo compuesto de aire, construya una caja cúbica hueca de tungsteno con un espesor
+# de pared constante de 1 cm, bajo las siguientes condiciones:
+
+# --- Parametros globales ---
+d:L             = 10.0 cm # Lado de la caja exterior
+d:thickness     = 1.0 cm # espesor de la caja
+d:twice         = 2.0 * thickness cm
+d:LInner        = L - twice cm
+
+# --- World Volume ---
+# Solid
+s:Ge/World/Type     = "TsBox"
+d:Ge/World/HLX      = 50.0 cm
+d:Ge/World/HLY      = 50.0 cm
+d:Ge/World/HLZ      = 50.0 cm
+# Logic
+s:Ge/World/Material = "Air"
+
+# --- Caja exterior ---
+s:Ge/OuterBox/Type      = "TsBox"
+s:Ge/OuterBox/Parent    = "World"
+s:Ge/OuterBox/Material  = "G4_W"
+d:Ge/OuterBox/HLX       = L cm * 0.5
+d:Ge/OuterBox/HLY       = L cm * 0.5
+d:Ge/OuterBox/HLZ       = L cm * 0.5
+d:Ge/OuterBox/TransX   = 0.0 cm
+d:Ge/OuterBox/TransY   = 0.0 cm
+d:Ge/OuterBox/TransZ   = 0.0 cm
+
+# --- Caja interior ---
+s:Ge/InnerBox/Type     = "TsBox"
+s:Ge/InnerBox/Parent   = "OuterBox"       
+s:Ge/InnerBox/Material = "Air"
+d:Ge/InnerBox/HLX      = LInner cm * 0.5 
+d:Ge/InnerBox/HLY      = LInner cm * 0.5 
+d:Ge/InnerBox/HLZ      = LInner cm * 0.5
+d:Ge/InnerBox/TransX   = 0.0 cm
+d:Ge/InnerBox/TransY   = 0.0 cm
+d:Ge/InnerBox/TransZ   = 0.0 cm
+
+
+# --- Visualizacion ---
+s:Ge/OuterBox/Color    = "grey"
+s:Ge/InnerBox/Color    = "blue"
+s:Ge/InnerBox/DrawingStyle = "Solid"
+b:Ge/OuterBox/Invisible = "false"
+b:Ge/InnerBox/Invisible = "false"
+
+# ---- Visualization ----
+#b:Ts/UseQt         = "True"
+s:Gr/ViewA/Type     = "OpenGL"
+
+# ---- Interfaz ----
+i:Ts/TrackingVerbosity = 0
+
+# Activate axes
+b:Gr/ViewA/IncludeAxes     = "True"
+s:Gr/ViewA/AxesComponent   = "World"
+d:Gr/ViewA/AxesSize        = 3. cm
+
+# Camera rotation
+d:Gr/ViewA/Phi      = 33.0796 deg
+d:Gr/ViewA/Theta      = 32.0796 deg
+
+# Mantener ViewA abierta
+b:Ts/PauseBeforeQuit = "True"

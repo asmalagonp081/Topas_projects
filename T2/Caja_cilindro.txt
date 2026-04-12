@@ -1,0 +1,91 @@
+#  Caja atravesada por una sección cilíndrica
+# --- Globals ---
+d:d         = 10.0 cm # distancia de los lados de las cajas y el largo de los Cilindros
+d:l         = 5.0 cm # largo de los Cilindros de afuera
+d:Half_d    = 0.5 * d cm
+d:Half_l    = 0.5 * l cm
+
+# --- World ---
+# Solid
+s:Ge/World/Type     = "TsBox"
+d:Ge/World/HLX      = 50.0 cm
+d:Ge/World/HLY      = 50.0 cm
+d:Ge/World/HLZ      = 50.0 cm
+# Logic
+s:Ge/World/Material = "Vacuum"
+
+# --- Caja cubica ---
+s:Ge/OuterBox/Type      = "TsBox"
+s:Ge/OuterBox/Parent    = "World"
+s:Ge/OuterBox/Material  = "G4_WATER"
+d:Ge/OuterBox/HLX       = 0.5 * d cm
+d:Ge/OuterBox/HLY       = 0.5 * d cm
+d:Ge/OuterBox/HLZ       = 0.5 * d cm
+d:Ge/OuterBox/TransX   = 0.0 cm
+d:Ge/OuterBox/TransY   = 0.0 cm
+d:Ge/OuterBox/TransZ   = 0.0 cm
+
+# --- Cilindro dentro de la caja ---
+s:Ge/InnerCylinder/Type      = "TsCylinder"
+s:Ge/InnerCylinder/Parent    = "OuterBox"
+s:Ge/InnerCylinder/Material  = "G4_W"
+d:Ge/InnerCylinder/Rmin      = 0. cm
+d:Ge/InnerCylinder/Rmax      = 0.5 * d cm
+d:Ge/InnerCylinder/HL        = 0.5 * d cm
+d:Ge/InnerCylinder/SPhi      = 0. deg
+d:Ge/InnerCylinder/DPhi      = 360. deg
+
+s:Ge/InnerCylinder/DrawingStyle = "Solid"
+b:Ge/InnerCylinder/Invisible = "false"
+
+# -- Cilindros fuera de la caja --
+# Cilindro 1
+s:Ge/Cylinder1/Type      = "TsCylinder"
+s:Ge/Cylinder1/Parent    = "World"
+s:Ge/Cylinder1/Material  = "G4_W"
+d:Ge/Cylinder1/Rmin      = 0. cm
+d:Ge/Cylinder1/Rmax      = 0.5 * d cm
+d:Ge/Cylinder1/HL        = 0.5 * l cm
+d:Ge/Cylinder1/SPhi      = 0. deg
+d:Ge/Cylinder1/DPhi      = 360. deg
+d:Ge/Cylinder1/TransX    = 0.0 cm
+d:Ge/Cylinder1/TransY    = 0.0 cm
+d:Ge/Cylinder1/TransZ    = Half_d + Half_l cm
+s:Ge/Cylinder1/DrawingStyle = "Solid"
+b:Ge/Cylinder1/Invisible = "false"
+
+# Cilindro 2
+s:Ge/Cylinder2/Type      = "TsCylinder"
+s:Ge/Cylinder2/Parent    = "World"
+s:Ge/Cylinder2/Material  = "G4_W"
+d:Ge/Cylinder2/Rmin      = 0. cm
+d:Ge/Cylinder2/Rmax      = 0.5 * d cm
+d:Ge/Cylinder2/HL        = 0.5 * l cm
+d:Ge/Cylinder2/SPhi      = 0. deg
+d:Ge/Cylinder2/DPhi      = 360. deg
+d:Ge/Cylinder2/TransX    = 0.0 cm
+d:Ge/Cylinder2/TransY    = 0.0 cm
+d:Distance               = Half_d + Half_l cm
+d:Dis2                   = Distance + Help cm
+d:Help                   = 0.00001 cm
+d:Ge/Cylinder2/TransZ    = Help - Dis2 cm
+s:Ge/Cylinder2/DrawingStyle = "Solid"
+b:Ge/Cylinder2/Invisible = "false"
+
+# -- Visualizacion --
+s:Gr/ViewA/Type     = "OpenGL"
+
+# ---- Interfaz ----
+i:Ts/TrackingVerbosity = 0
+
+# Activate axes
+b:Gr/ViewA/IncludeAxes     = "True"
+s:Gr/ViewA/AxesComponent   = "World"
+d:Gr/ViewA/AxesSize        = 3. cm
+
+# Camera rotation
+d:Gr/ViewA/Phi      = 33.0796 deg
+d:Gr/ViewA/Theta      = 32.0796 deg
+
+# Mantener ViewA abierta
+b:Ts/PauseBeforeQuit = "True"
