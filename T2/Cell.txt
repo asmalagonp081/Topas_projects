@@ -1,0 +1,74 @@
+# -- Modelo simplificado de célula --
+# modelo esférico de célula compuesto por tres regiones concéntricas
+
+# -- Globals --
+d:MemRmax       = 0.0102 mm
+d:CitoRmax      = 0.010 mm
+d:NuRmax        = 0.005 mm
+d:CitoRmin      = NuRmax + 0.00001 mm
+d:MemRmin       = CitoRmax + 0.00001 mm
+
+# --- World ---
+s:Ge/World/Type     = "TsBox"
+d:Ge/World/HLX      = 0.1 mm
+d:Ge/World/HLY      = 0.1 mm
+d:Ge/World/HLZ      = 0.1 mm
+s:Ge/World/Material = "Vacuum"
+
+# -- Membrana celular --
+s:Ge/Membrana/Type          = "TsSphere"
+d:Ge/Membrana/RMin          = MemRmin mm
+d:Ge/Membrana/RMax          = MemRmax mm
+d:Ge/Membrana/SPhi          = 0. deg
+d:Ge/Membrana/DPhi          = 360.0 deg
+d:Ge/Membrana/STheta        = 0. deg
+d:Ge/Membrana/DTheta        = 180.0 deg
+s:Ge/Membrana/Material      = "G4_TISSUE_SOFT_ICRP"
+s:Ge/Membrana/Parent        = "World"
+#s:Ge/Membrana/DrawingStyle  = "Solid"
+b:Ge/Membrana/Invisible = "false"
+
+# -- Citoplasma --
+s:Ge/Citoplasma/Type          = "TsSphere"
+d:Ge/Citoplasma/RMin          = CitoRmin mm
+d:Ge/Citoplasma/RMax          = CitoRmax mm
+d:Ge/Citoplasma/SPhi          = 0. deg
+d:Ge/Citoplasma/DPhi          = 360.0 deg
+d:Ge/Citoplasma/STheta        = 0. deg
+d:Ge/Citoplasma/DTheta        = 180.0 deg
+s:Ge/Citoplasma/Material      = "G4_WATER"
+s:Ge/Citoplasma/Parent        = "World"
+s:Ge/Citoplasma/DrawingStyle  = "Solid"
+s:Ge/Citoplasma/Color    = "blue"
+
+# -- Nucleo --
+s:Ge/Nucleo/Type          = "TsSphere"
+d:Ge/Nucleo/RMin          = 0. mm
+d:Ge/Nucleo/RMax          = NuRmax mm
+d:Ge/Nucleo/SPhi          = 0. deg
+d:Ge/Nucleo/DPhi          = 360.0 deg
+d:Ge/Nucleo/STheta        = 0. deg
+d:Ge/Nucleo/DTheta        = 180.0 deg
+s:Ge/Nucleo/Material      = "G4_TISSUE_SOFT_ICRP"
+s:Ge/Nucleo/Parent        = "World"
+s:Ge/Nucleo/DrawingStyle  = "Solid"
+s:Ge/Nucleo/Color    = "green"
+
+# -- Traslape --
+b:Ge/CheckForOverlaps = "True"
+
+# -- Visualizacion --
+s:Gr/ViewA/Type     = "OpenGL"
+# Interfaz
+i:Ts/TrackingVerbosity = 0
+# Activate axes
+b:Gr/ViewA/IncludeAxes     = "True"
+s:Gr/ViewA/AxesComponent   = "World"
+d:Gr/ViewA/AxesSize        = 0.1 mm
+
+# Camera rotation
+d:Gr/ViewA/Phi      = 33.0796 deg
+d:Gr/ViewA/Theta      = 32.0796 deg
+
+# Mantener ViewA abierta
+b:Ts/PauseBeforeQuit = "True"
