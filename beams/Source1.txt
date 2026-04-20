@@ -1,0 +1,86 @@
+# Source1: point, monodirectional and monoenergetic source
+
+#===================
+#==== [Geometry] ===
+#===================
+# === World ===
+d:Ge/World/HLX       = 1.0 m
+d:Ge/World/HLY       = 1.0 m
+d:Ge/World/HLZ       = 1.0 m
+b:Ge/world/Invisible = "T"
+s:Ge/World/Material  = "Vacuum"
+
+# === Target ===
+s:Ge/MyBox/Type     = "TsBox"
+s:Ge/MyBox/Material = "G4_WATER"
+s:Ge/MyBox/Parent   = "World"
+d:Ge/MyBox/HLX      = 0.1 m
+d:Ge/MyBox/HLY      = 0.1 m
+d:Ge/MyBox/HLZ      = 0.1 m
+i:Ge/MyBox/ZBins    = 20 # Divide la caja a lo largo de Z
+
+#===================
+#==== [Source] =====
+#===================
+# === Source ===
+s:So/MySource/Type                     = "Beam"
+s:So/MySource/Component                = "BeamPosition"
+s:So/MySource/BeamParticle             = "e"
+d:So/MySource/BeamEnergy               = 1 MeV
+u:So/MySource/BeamEnergySpread         = 0.0
+s:So/MySource/BeamAngularDistribution  = "None"
+s:So/MySource/BeamPositionDistribution = "None"
+i:So/MySource/NumberOfHistoriesInRun   = 10000
+
+# === BeamPosition ===
+# *** User-defined parameters ***
+d:SourceVertex = -90.0 cm
+#d:Shift        = 0.1 m
+
+# *** La fuente se ubica en z negativo ***
+d:Ge/BeamPosition/TransZ = SourceVertex cm
+# *** Las partículas se emiten desde -z hacia +z ***
+d:Ge/BeamPosition/RotX   = 0.0 deg
+
+
+#=========================
+#==== [Physics List] =====
+#=========================
+# ***********************************
+s:Ph/ListName      = "List"
+s:Ph/List/Type     = "Geant4_Modular"
+sv:Ph/List/Modules = 3 "g4em-standard_opt0" "g4h-phy_FTFP_BERT" "g4ion"
+# ***********************************
+
+#===================
+#==== [Scorer] =====
+#===================
+# Energía depositada
+s:Sc/Myscorer/Quantity                  = "EnergyDeposit"
+s:Sc/Myscorer/Component                 = "MyBox"
+b:Sc/Myscorer/OutputToConsole           = "True"
+s:Sc/Myscorer/IfOutputFileAlreadyExists = "Overwrite"
+
+# Dosis absorbida
+s:Sc/DoseScorer/Quantity                  = "DoseToMedium"
+s:Sc/DoseScorer/Component                 = "MyBox"
+b:Sc/DoseScorer/OutputToConsole           = "True"
+s:Sc/DoseScorer/IfOutputFileAlreadyExists = "Overwrite"
+
+
+
+#================
+#==== [GUI]====== 
+#================
+b:Ts/UseQt = "True"
+s:Gr/ViewA/Type = "OpenGL"
+
+#==========================
+#==== [Activate axes] =====
+#==========================
+b:Gr/ViewA/IncludeAxes   = "False" 
+s:Gr/ViewA/AxesComponent = "World" 
+d:Gr/ViewA/AxesSize      = 0.3 m 
+i:Ts/TrackingVerbosity = 0
+i:Ts/NumberOfThreads = 4
+
