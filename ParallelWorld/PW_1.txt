@@ -1,4 +1,6 @@
-# Source1: point, monodirectional and monoenergetic source
+# -- My first parallel world --
+# --- Global parameters ---
+d:TransDet      = Ge/MyBox/HLZ - 5.0 cm
 
 #===================
 #==== [Geometry] ===
@@ -10,14 +12,30 @@ d:Ge/World/HLZ       = 1.0 m
 b:Ge/world/Invisible = "T"
 s:Ge/World/Material  = "Vacuum"
 
-# === Target ===
+#================
+#==== Target ====
+#================
 s:Ge/MyBox/Type     = "TsBox"
 s:Ge/MyBox/Material = "G4_WATER"
 s:Ge/MyBox/Parent   = "World"
-d:Ge/MyBox/HLX      = 0.1 m
-d:Ge/MyBox/HLY      = 0.1 m
-d:Ge/MyBox/HLZ      = 0.1 m
-i:Ge/MyBox/ZBins    = 20 # Divide la caja a lo largo de Z
+dc:Ge/MyBox/HLX      = 0.1 m
+dc:Ge/MyBox/HLY      = 0.1 m
+dc:Ge/MyBox/HLZ      = 0.1 m
+ic:Ge/MyBox/ZBins    = 1
+
+#========================
+#==== Detector ====
+#========================
+s:Ge/Det/Parent     = "World"
+s:Ge/Det/Type       = "TsBox"
+b:Ge/Det/IsParallel = "True"
+dc:Ge/Det/HLZ       = 0.5 cm
+dc:Ge/Det/HLX       = 0.5 cm
+dc:Ge/Det/HLY       = 3.0 cm
+d:Ge/Det/TransZ    = -1.0 * TransDet cm
+sc:Ge/Det/DrawingStyle = "WireFrame"
+ic:Ge/Det/ZBins     = 1
+sc:Ge/Det/Color     = "Green"
 
 #===================
 #==== [Source] =====
@@ -26,22 +44,20 @@ i:Ge/MyBox/ZBins    = 20 # Divide la caja a lo largo de Z
 s:So/MySource/Type                     = "Beam"
 s:So/MySource/Component                = "BeamPosition"
 s:So/MySource/BeamParticle             = "gamma"
-d:So/MySource/BeamEnergy               = 8 MeV
+d:So/MySource/BeamEnergy               = 1.25 MeV
 u:So/MySource/BeamEnergySpread         = 0.0
 s:So/MySource/BeamAngularDistribution  = "None"
 s:So/MySource/BeamPositionDistribution = "None"
-i:So/MySource/NumberOfHistoriesInRun   = 100
+i:So/MySource/NumberOfHistoriesInRun   = 1000
 
-# === BeamPosition ===
-# *** User-defined parameters ***
+#=====================
+#==== BeamPosition ===
+#=====================
 d:SourceVertex = -90.0 cm
 #d:Shift        = 0.1 m
-
-# *** La fuente se ubica en z negativo ***
 d:Ge/BeamPosition/TransZ = SourceVertex cm
 # *** Las partículas se emiten desde -z hacia +z ***
 d:Ge/BeamPosition/RotX   = 0.0 deg
-
 
 #=========================
 #==== [Physics List] =====
@@ -49,33 +65,23 @@ d:Ge/BeamPosition/RotX   = 0.0 deg
 # ***********************************
 s:Ph/ListName      = "List"
 s:Ph/List/Type     = "Geant4_Modular"
-sv:Ph/List/Modules = 3 "g4em-standard_opt0" "g4h-phy_FTFP_BERT" "g4ion"
-# ***********************************
+sv:Ph/List/Modules = 1 "g4em-standard_opt0"
 
 #===================
 #==== [Scorer] =====
 #===================
-# Energía depositada
-s:Sc/Myscorer/Quantity                  = "EnergyDeposit"
-s:Sc/Myscorer/Component                 = "MyBox"
-b:Sc/Myscorer/OutputToConsole           = "True"
-s:Sc/Myscorer/IfOutputFileAlreadyExists = "Overwrite"
-
 # Dosis absorbida
 s:Sc/DoseScorer/Quantity                  = "DoseToMedium"
-s:Sc/DoseScorer/Component                 = "MyBox"
+s:Sc/DoseScorer/Component                 = "Det"
 b:Sc/DoseScorer/OutputToConsole           = "True"
 s:Sc/DoseScorer/IfOutputFileAlreadyExists = "Overwrite"
-
-
+sv:Sc/DoseScorer/Report                   = 3 "Sum" "Mean" "Standard_Deviation"
 
 #================
 #==== [GUI]====== 
 #================
 #b:Ts/UseQt = "True"
 #s:Gr/ViewA/Type = "OpenGL"
-
-
 
 #==========================
 #==== [Activate axes] =====

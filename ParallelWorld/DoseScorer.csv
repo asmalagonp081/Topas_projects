@@ -1,0 +1,6 @@
+# TOPAS Version: 3.9
+# Parameter File: PW_1.txt
+# Results for scorer: DoseScorer
+# Scored in component: Det
+# DoseToMedium ( Gy ) : Sum   Mean   Standard_Deviation   
+8.558561637173057e-10, 8.55856157911289e-13, 4.064084022536771e-12
