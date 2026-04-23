@@ -30,7 +30,7 @@ d:So/MySource/BeamEnergy               = 8 MeV
 u:So/MySource/BeamEnergySpread         = 0.0
 s:So/MySource/BeamAngularDistribution  = "None"
 s:So/MySource/BeamPositionDistribution = "None"
-i:So/MySource/NumberOfHistoriesInRun   = 100
+i:So/MySource/NumberOfHistoriesInRun   = 10
 
 # === BeamPosition ===
 # *** User-defined parameters ***
@@ -72,16 +72,16 @@ s:Sc/DoseScorer/IfOutputFileAlreadyExists = "Overwrite"
 #================
 #==== [GUI]====== 
 #================
-#b:Ts/UseQt = "True"
-#s:Gr/ViewA/Type = "OpenGL"
+b:Ts/UseQt = "True"
+s:Gr/ViewA/Type = "OpenGL"
 
 
 
 #==========================
 #==== [Activate axes] =====
 #==========================
-#b:Gr/ViewA/IncludeAxes   = "False" 
-#s:Gr/ViewA/AxesComponent = "World" 
-#d:Gr/ViewA/AxesSize      = 0.3 m 
-#i:Ts/TrackingVerbosity = 0
-#i:Ts/NumberOfThreads = 4
+b:Gr/ViewA/IncludeAxes   = "False" 
+s:Gr/ViewA/AxesComponent = "World" 
+d:Gr/ViewA/AxesSize      = 0.3 m 
+i:Ts/TrackingVerbosity = 0
+i:Ts/NumberOfThreads = 4

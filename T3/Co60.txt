@@ -1,0 +1,52 @@
+#======================
+#==== Co_60 Source ====
+#======================
+
+# Mundo visible hecho de vacío, 
+# en donde se encuentra una fuente de Co_60 en el centro.
+#===============
+#==== World ====
+#===============
+d:Ge/World/HLX          = 1.0 m
+d:Ge/World/HLY          = 1.0 m
+d:Ge/World/HLZ          = 1.0 m
+b:Ge/World/Invisible    = "F"
+s:Ge/World/Material     = "Vacuum"
+
+#================
+#==== Source ====
+#================
+s:So/Co/Type            = "Isotropic"
+s:So/Co/Component       = "BeamPosition"
+s:So/Co/BeamParticle    = "GenericIon(27, 60)"
+i:Z                     = 27
+i:A                     = 60
+d:So/Co/BeamEnergy      = 0.0 MeV
+u:So/Co/BeamEnergySpread = 0.0
+i:So/Co/NumberOfHistoriesInRun = 10
+
+# == Beam Position ==
+d:Ge/BeamPosition/TransZ    = 0.0 m
+
+#=========================
+#==== [Physics List] =====
+#=========================
+s:Ph/ListName      = "List"
+s:Ph/List/Type     = "Geant4_Modular"
+sv:Ph/List/Modules = 2 "g4em-standard_opt0" "g4radioactivedecay"
+
+#================
+#==== [GUI]====== 
+#================
+b:Ts/UseQt = "True"
+s:Gr/ViewA/Type = "OpenGL"
+
+#==========================
+#==== [Activate axes] =====
+#==========================
+#b:Gr/ViewA/IncludeAxes   = "False" 
+#s:Gr/ViewA/AxesComponent = "World" 
+#d:Gr/ViewA/AxesSize      = 0.3 m 
+#i:Ts/TrackingVerbosity = 0
+#i:Ts/NumberOfThreads = 4
+
