@@ -1,0 +1,133 @@
+#========================================
+#=========== Taller de Repaso ===========
+#========================================
+
+#========================================
+#============== Materiales ==============
+#========================================
+
+# --------- Germanio enriquecido --------
+b:Ma/Germanio/BuildFrom    = "True"
+# Isótopo Ge-72
+i:Is/Ge72/Z = 32
+i:Is/Ge72/N = 40
+d:Is/Ge72/A = 71.92 g/mol
+# Isótopo Ge-73
+i:Is/Ge73/Z = 32
+i:Is/Ge73/N = 41
+d:Is/Ge73/A = 73.00 g/mol
+# Isótopo Ge-74
+i:Is/Ge74/Z = 32
+i:Is/Ge74/N = 42
+d:Is/Ge74/A = 74.00 g/mol
+# Isótopo Ge-76
+i:Is/Ge76/Z = 32
+i:Is/Ge76/N = 44
+d:Is/Ge76/A = 76.00 g/mol
+# Germanio enriquecido
+s:El/Germ/Symbol                    = "Germ"
+sv:El/Germ/IsotopeNames             = 4 "Ge72" "Ge73" "Ge74" "Ge76"
+uv:El/Germ/IsotopeAbundances        = 4 0.1 0.2 13.1 86.6
+# Definicion
+sv:Ma/Germanio/Components           = 1 "Germ"
+uv:Ma/Germanio/Fractions            = 1 1.0
+d:Ma/Germanio/Density               = 5.599 g/cm3
+s:Ma/Germanio/State                 = "Solid"
+d:Ma/Germanio/Temperature           = 293.15 kelvin
+s:Ma/Germanio/DefaultColor          = "gray"
+
+# --------- Nitrogeno líquido -----------
+# Definicion
+b:Ma/NitLiq/BuildFromMaterials    = "True"
+sv:Ma/NitLiq/Components             = 1 "G4_N"
+uv:Ma/NitLiq/Fractions              = 1 1.0
+d:Ma/NitLiq/Density                 = 0.808 g/cm3
+s:Ma/NitLiq/State                   = "Liquid"
+d:Ma/NitLiq/Temperature             = 77.0 kelvin
+d:Ma/NitLiq/MeanExcitationEnergy    = 82 eV
+s:Ma/NitLiq/DefaultColor            = "skyblue"
+
+# ---------- Aire en gas -----------------
+b:Ma/Air/BuildFromMaterials    = "True"
+sv:Ma/Air/Components           = 2 "G4_N" "G4_O"
+uv:Ma/Air/Fractions            = 2 0.8 0.2
+d:Ma/Air/Density               = 1.29 mg/cm3
+s:Ma/Air/State                 = "Gas"
+d:Ma/Air/Temperature           = 300 kelvin
+
+#========================================
+#============= Geometrías ===============
+#========================================
+
+# ---------------- World ----------------
+d:Ge/World/HLX       = 1.0 m
+d:Ge/World/HLY       = 1.0 m
+d:Ge/World/HLZ       = 1.0 m
+b:Ge/world/Invisible = "T"
+s:Ge/World/Material  = "Air"
+
+# --------------- Cilindro --------------
+s:Ge/Cil/Type               = "TsCylinder"
+s:Ge/Cil/Parent             = "World"
+s:Ge/Cil/Material           = "NitLiq"
+d:Ge/Cil/Rmin               = 0.0 cm
+d:Ge/Cil/Rmax               = 0.5 cm
+d:Ge/Cil/HL                 = 10.0 cm
+d:Ge/Cil/SPhi               = 0.0 deg
+d:Ge/Cil/DPhi               = 360.0 deg
+s:Ge/Cil/DrawingStyle       = "Solid"
+b:Ge/Cil/Invisible          = "F"
+d:Ge/Cil/TransX             = 0.0 cm
+d:Ge/Cil/TransY             = 0.0 cm
+d:Ge/Cil/TransZ             = 10.0 cm
+dc:Ge/Cil/RotX              = 0.0 deg
+dc:Ge/Cil/RotY              = 90.0 deg
+dc:Ge/Cil/RotZ              = 0.0 deg
+
+# ----------------- Caja -----------------
+s:Ge/Box/Type               = "TsBox"
+s:Ge/Box/Parent             = "Cil"
+s:Ge/Box/Material           = "Germanio"
+dc:Ge/Box/HLX                = 0.5 cm
+dc:Ge/Box/HLY                = 0.5 cm
+dc:Ge/Box/HLZ                = 0.5 cm
+
+#========================================
+#================ Fuentes ===============
+#========================================
+# ------------ Fuente Puntual -x --------
+s:So/S1/Type                     = "Beam"
+s:So/S1/Component                = "BeamPosition"
+s:So/S1/BeamParticle             = "e-"
+d:So/S1/BeamEnergy               = 1.0 MeV
+u:So/S1/BeamEnergySpread         = 0.0
+sc:So/S1/BeamAngularDistribution  = "None"
+sc:So/S1/BeamPositionDistribution = "None"
+i:So/S1/NumberOfHistoriesInRun   = 1
+
+# ------------ Fuente Puntual +z --------
+s:So/S1/Type                     = "Beam"
+s:So/S1/Component                = "BeamPosition"
+s:So/S1/BeamParticle             = "gamma"
+dv:So/S1/BeamEnergy               = 122.0 136.0 keV
+u:So/S1/BeamEnergySpread         = 0.0
+sc:So/S1/BeamAngularDistribution  = "None"
+sc:So/S1/BeamPositionDistribution = "None"
+i:So/S1/NumberOfHistoriesInRun   = 1
+
+
+
+#================
+#==== [GUI]====== 
+#================
+b:Ts/UseQt = "True"
+s:Gr/ViewA/Type = "OpenGL"
+
+#==========================
+#==== [Activate axes] =====
+#==========================
+b:Gr/ViewA/IncludeAxes   = "True" 
+s:Gr/ViewA/AxesComponent = "World" 
+d:Gr/ViewA/AxesSize      = 0.1 m 
+#i:Ts/TrackingVerbosity = 0
+#i:Ts/NumberOfThreads = 4
