@@ -1,0 +1,103 @@
+# Simplest TOPAS example.
+# A box inside another box with a different camera view (see
+# last block of lines)
+# A simple unidirectional, linear a nd monoenergetic beam
+
+#========
+#Geometry
+#========
+#******************************
+#**** World ******
+#******************************
+b:Ge/World/Invisible = "True"
+d:Ge/World/HLX       = 20. cm
+d:Ge/World/HLY       = 20. cm
+d:Ge/World/HLZ       = 20. cm
+s:Ge/World/Material  = "Vacuum"
+
+#******************************
+#**** Target ******
+#******************************
+s:Ge/MyBox/Type       = "TsBox"
+dc:Ge/MyBox/HLX      = 1 mm
+dc:Ge/MyBox/HLY      = 1 mm
+dc:Ge/MyBox/HLZ      = 1.0 um #0.5 um
+sc:Ge/MyBox/Material = "G4_Au"
+s:Ge/MyBox/Parent     = "World"
+
+#******************************
+#**** Cylindrical detector ******
+#******************************
+s:Ge/Detector/Type     = "TsCylinder"
+d:Ge/Detector/RMin     = 0.9 cm
+d:Ge/Detector/RMax     = 1.0 cm
+d:Ge/Detector/SPhi     = 5.0 deg
+d:Ge/Detector/DPhi     = 350. deg
+d:Ge/Detector/HL       = 1 mm
+s:Ge/Detector/Material = "Vacuum"
+s:Ge/Detector/Parent   = "World"
+ic:Ge/Detector/PhiBins = 70
+d:Ge/Detector/RotX    = 90 deg
+d:Ge/Detector/RotY    = 0 deg
+d:Ge/Detector/RotZ    = -90 deg
+#b:Ge/Detector/Invisible = "True"
+
+#======================
+# Source component
+#======================
+s:Ge/BeamPosition/Parent   = "World"
+s:Ge/BeamPosition/Type     = "Group"
+d:Ge/BeamPosition/TransZ   = -4 mm
+d:Ge/BeamPosition/RotX     = 0 deg
+#======================
+# Primary source (beam)
+#======================
+s:So/MySource/Type                            = "Beam"
+s:So/MySource/Component                 = "BeamPosition"
+sc:So/MySource/BeamParticle              = "alpha"
+dc:So/MySource/BeamEnergy               = 5.5 MeV
+s:So/MySource/BeamPositionDistribution  = "None"
+s:So/MySource/BeamAngularDistribution   = "None"
+
+i:Ts/ShowHistoryCountAtInterval        = 100 
+i:So/MySource/NumberOfHistoriesInRun  = 1000
+
+#======================
+# Scoring
+#======================
+s:Sc/CountInner/Quantity                           = "SurfaceTrackCount" #"DoseToMedium"
+s:Sc/CountInner/Component                      = "Detector"
+s:Sc/CountInner/Surface                             = "Detector/InnerCurvedSurface"
+b:Sc/CountInner/OutputToConsole             = "TRUE"
+s:Sc/CountInner/IfOutputFileAlreadyExists  = "Overwrite"
+#s:Sc/CountInner/OutputFile 		            = "Rutherford-Espesor1.0um-70bins-EM"
+sv:Sc/CountInner/Report                             = 1 "Sum"
+
+#======================
+# Physics List
+#======================
+sv:Ph/Default/Modules = 1 "g4em-standard_opt0"
+
+#====================
+#Graphical part
+#====================
+#s:Gr/ViewA/Type  = "OpenGL"
+#Ts/UseQt         = "True"
+
+#i:Gr/ViewA/WindowSizeX      = 1024
+#i:Gr/ViewA/WindowSizeY      = 768
+#bc:Gr/ViewA/IncludeAxes     = "True"
+#s:Gr/ViewA/AxesComponent   = "World"  #Se puede ajustar al volumen requerido
+#dc:Gr/ViewA/AxesSize        = 1 cm 
+#
+#***** Camera view *******
+d:Gr/ViewA/Theta             = -90 deg
+#d:Gr/ViewA/Phi              = 150 deg
+#s:Gr/ViewA/Projection       = "Perspective"
+#d:Gr/ViewA/PerspectiveAngle = 30 deg
+#u:Gr/ViewA/Zoom              = 1.3
+
+#b:Ts/PauseBeforeQuit  = "True"
+#i:Ts/TrackingVerbosity = 2
+#i:Ts/NumberOfThreads   = 8
+
