@@ -115,7 +115,13 @@ sc:So/S1/BeamAngularDistribution  = "None"
 sc:So/S1/BeamPositionDistribution = "None"
 i:So/S1/NumberOfHistoriesInRun   = 1
 
-
+#=========================
+#==== [Physics List] =====
+#=========================
+# ***********************************
+s:Ph/ListName      = "List"
+s:Ph/List/Type     = "Geant4_Modular"
+sv:Ph/List/Modules = 1 "g4em-standard_opt0"
 
 #================
 #==== [GUI]====== 
